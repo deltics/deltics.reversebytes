@@ -1,0 +1,21 @@
+{
+  "id":"deltics.reversebytes",
+  "version":"",
+  "summary":"Routines for efficiently swapping bytes in buffers or within types of various sizes",
+  "tags":[
+    "deltics",
+    "reverse"
+  ],
+  "copyright":"\u00A92020 Jolyon Direnko-Smith",
+  "language":"en",
+  "content":"source",
+  "dependencies":[
+    "deltics.inc:1.0.2"
+  ],
+  "source":{
+      "files":[
+        "src\\deltics.reversebytes.inc",
+        "src\\Deltics.ReverseBytes.pas"
+      ]
+    }
+}
