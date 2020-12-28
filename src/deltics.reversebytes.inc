@@ -4,7 +4,7 @@
 {$debuginfo OFF}
 
 {$ifdef debug_DelticsReverseBytes}
-  {$undefine InlineMethods}
+  {$undef InlineMethods}
   {$debuginfo ON}
 {$endif}
 
