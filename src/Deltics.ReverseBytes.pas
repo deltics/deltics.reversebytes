@@ -10,8 +10,9 @@ interface
   function ReverseBytes(const aValue: LongWord): LongWord; overload;
   function ReverseBytes(const aValue: Int64): Int64; overload;
 
-  procedure ReverseBytes(aBuffer: System.PWord; const aWords: Integer); overload;
-  procedure ReverseBytes(aBuffer: System.PCardinal; const aCardinals: Integer); overload;
+  procedure ReverseBytes(aBuffer: System.PWord; const aCount: Integer); overload;
+  procedure ReverseBytes(aBuffer: System.PCardinal; const aCount: Integer); overload;
+  procedure ReverseBytes(aBuffer: System.PInt64; const aCount: Integer); overload;
 
 
 implementation
@@ -51,11 +52,11 @@ implementation
 
   { - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - }
   procedure ReverseBytes(      aBuffer: System.PWord;
-                         const aWords: Integer);
+                         const aCount: Integer);
   var
     i: Integer;
   begin
-    for i := Pred(aWords) downto 0 do
+    for i := Pred(aCount) downto 0 do
     begin
       aBuffer^ :=  (((aBuffer^ and $ff00) shr 8)
                  or ((aBuffer^ and $00ff) shl 8));
@@ -67,11 +68,11 @@ implementation
 
   { - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - }
   procedure ReverseBytes(      aBuffer: System.PCardinal;
-                         const aCardinals: Integer);
+                         const aCount: Integer);
   var
     i: Integer;
   begin
-    for i := Pred(aCardinals) downto 0 do
+    for i := Pred(aCount) downto 0 do
     begin
       aBuffer^ :=  (((aBuffer^ and $ff000000) shr 24)
                 or  ((aBuffer^ and $00ff0000) shr 8)
@@ -81,6 +82,29 @@ implementation
       Inc(aBuffer);
     end;
   end;
+
+
+  { - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - }
+  procedure ReverseBytes(      aBuffer: System.PInt64;
+                         const aCount: Integer);
+  var
+    i: Integer;
+  begin
+    for i := Pred(aCount) downto 0 do
+    begin
+      aBuffer^ := (((aBuffer^ and $ff00000000000000) shr 56)
+               or  ((aBuffer^ and $00ff000000000000) shr 40)
+               or  ((aBuffer^ and $0000ff0000000000) shr 24)
+               or  ((aBuffer^ and $000000ff00000000) shr 8)
+               or  ((aBuffer^ and $00000000ff000000) shl 8)
+               or  ((aBuffer^ and $0000000000ff0000) shl 24)
+               or  ((aBuffer^ and $000000000000ff00) shl 40)
+               or  ((aBuffer^ and $00000000000000ff) shl 56));
+
+      Inc(aBuffer);
+    end;
+  end;
+
 
 
 
